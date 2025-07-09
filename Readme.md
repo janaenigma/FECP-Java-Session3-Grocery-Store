@@ -1,20 +1,29 @@
-# Part 1 of 2 Grocery Store Inventory System
+# Grocery Store Inventory System
 Submitted by: Baruc, Jana Enigma S.
 
+## System Proper
 ### View Inventory (without products)
-![View Inventory (without products)](1.png)
+![View Inventory (without products)](view%20empty%20inventory.png)
 
 ### Add Products
-![Add Products](2.png)
+![Add Products](add%20product.png)
 
 ### Check Product
-![Check Products)](3.png)
+![Check Products)](check%20product.png)
 
 ### Update Product
-![Update Products](4.png)
+![Update Products](update%20product.png)
 
 ### Remove Product
-![Remove Products](5.png)
+![Remove Products](remove%20product.png)
 
 ### Exit
-![Exit](6.png)
+![Exit](exit%20system.png)
+
+
+## Testing
+### Testing Output
+![Testing Output](test%20output.png)
+
+### Testing Coverage
+![Testing Coverage](test%20coverage.png)

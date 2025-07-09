@@ -12,10 +12,10 @@ public class Main {
         do {
             opt = displayMenu();
             switch (opt){
-                case "1":
+                case "1": // View Inventory
                     viewInventory(groceryInventory);
                     break;
-                case "2":
+                case "2": // Add Product
                     System.out.print("Enter product name: ");
                     String item = sc.nextLine();
                     System.out.print("Enter quantity: ");
@@ -23,12 +23,12 @@ public class Main {
                     int qty = Integer.parseInt(qtyString);
                     addProduct(item,qty);
                     break;
-                case "3":
+                case "3": // Check Product
                     System.out.print("Enter product name to check: ");
                     String newItem = sc.nextLine();
                     checkProduct(newItem);
                     break;
-                case "4":
+                case "4": // Update Product
                     System.out.print("Enter product name to update: ");
                     String itemToUpdate = sc.nextLine();
                     System.out.print("Enter new stock quantity: ");
@@ -36,12 +36,12 @@ public class Main {
                     int newQty = Integer.parseInt(newQtyString);
                     updateProduct(itemToUpdate, newQty);
                     break;
-                case "5":
+                case "5": // Remove Product
                     System.out.print("Enter product name to remove: ");
                     String itemToRemove = sc.nextLine();
                     removeProduct(itemToRemove);
                     break;
-                case "6":
+                case "6": // Exit System
                     System.out.println("Exiting system . . .");
                     break;
                 default:
@@ -50,6 +50,7 @@ public class Main {
         } while (!opt.equals("6"));
     }
 
+    // Display Menu
     static String displayMenu(){
         System.out.println("\n--- Grocery Inventory Menu ---");
         System.out.println("1. View Inventory");
@@ -62,70 +63,96 @@ public class Main {
         return sc.nextLine();
     }
 
+    // View Inventory
     public static String viewInventory(HashMap<String, Integer> groceryInventory){
         System.out.println("\nCurrent Inventory:");
         if (groceryInventory.isEmpty()){
             System.out.println("Inventory is empty. No items to display.");
+            return "Inventory is empty. No items to display.";
         }
         else {
             groceryInventory.forEach((key, value) ->
                     System.out.println(key + " - " + value + " pcs"));
+            return "Inventory display.";
             }
-        return "View Inventory";
     }
 
+    // Add Product
     public static String addProduct(String item, int qty){
-        groceryInventory.put(item, qty);
-        System.out.println("Product is added!");
-
-        return "Product is added!";
+        if (groceryInventory.containsKey(item)){
+            System.out.println("Product already exists. Overwriting . . .");
+                groceryInventory.replace(item, qty);
+                System.out.println("Product replaced.");
+                return "Product replaced.";
+        }
+        else {
+            if (qty <= 0){
+                System.out.println("Quantity must be more than 0. Returning to menu . . .");
+                return "Quantity must be more than 0.";
+            }
+            else {
+                groceryInventory.put(item, qty);
+                System.out.println("Product is added!");
+                return "Product is added!";
+            }
+        }
     }
 
+    // Check Product
     public static String checkProduct(String item){
         if (groceryInventory.isEmpty()){
             System.out.println("Inventory is empty. No stock to check.");
+            return "Inventory is empty. No stock to check.";
         }
         else {
             if (groceryInventory.containsKey(item)){
                 Integer qty = groceryInventory.get(item);
                 System.out.println(item + " is in stock: " + qty);
+                return "Item is in stock.";
                 }
             else {
-                System.out.println("Item is not in stock.");
+                System.out.println("Product not found.");
+                return "Product not found.";
             }
         }
-        return "Item is in stock.";
     }
 
+    // Update Product
     public static String updateProduct(String item, int qty){
         if (groceryInventory.isEmpty()){
             System.out.println("Inventory is empty. No stock to check.");
+            return "Inventory is empty. No stock to check.";
         }
         else {
             if (groceryInventory.containsKey(item)){
                 groceryInventory.replace(item, qty);
                 System.out.println("Product updated!");
+                return "Product updated!";
             }
             else {
                 System.out.println("Product not found.");
+                return "Product not found.";
             }
         }
-        return "Product updated!";
     }
 
+    // Remove Product
     public static String removeProduct(String item){
         if (groceryInventory.isEmpty()){
             System.out.println("Inventory is empty. No stock to check.");
+            return "Inventory is empty. No stock to check.";
         }
         else {
             if (groceryInventory.containsKey(item)){
                 groceryInventory.remove(item);
                 System.out.println("Product removed.");
+                return "Product removed.";
             }
             else {
                 System.out.println("Product not found.");
+                return "Product not found.";
             }
         }
-        return "Product removed.";
     }
+
 }

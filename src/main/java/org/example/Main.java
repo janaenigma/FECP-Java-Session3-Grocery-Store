@@ -1,12 +1,11 @@
 package org.example;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static Scanner sc = new Scanner(System.in);
-    static HashMap<String, Integer> groceryInventory = new HashMap<String, Integer>();
+    static HashMap<String, Integer> groceryInventory = new HashMap<>();
 
     public static void main(String[] args) {
         String opt;
@@ -18,26 +17,28 @@ public class Main {
                     break;
                 case "2":
                     System.out.print("Enter product name: ");
-                    String newItem = sc.next();
+                    String item = sc.nextLine();
                     System.out.print("Enter quantity: ");
-                    int qty = sc.nextInt();
-                    addProduct(newItem,qty);
+                    String qtyString = sc.nextLine();
+                    int qty = Integer.parseInt(qtyString);
+                    addProduct(item,qty);
                     break;
                 case "3":
                     System.out.print("Enter product name to check: ");
-                    String itemToCheck = sc.next();
-                    checkProduct(itemToCheck);
+                    String newItem = sc.nextLine();
+                    checkProduct(newItem);
                     break;
                 case "4":
                     System.out.print("Enter product name to update: ");
-                    String itemToUpdate = sc.next();
+                    String itemToUpdate = sc.nextLine();
                     System.out.print("Enter new stock quantity: ");
-                    int newQty = sc.nextInt();
+                    String newQtyString = sc.nextLine();
+                    int newQty = Integer.parseInt(newQtyString);
                     updateProduct(itemToUpdate, newQty);
                     break;
                 case "5":
                     System.out.print("Enter product name to remove: ");
-                    String itemToRemove = sc.next();
+                    String itemToRemove = sc.nextLine();
                     removeProduct(itemToRemove);
                     break;
                 case "6":
@@ -50,15 +51,15 @@ public class Main {
     }
 
     static String displayMenu(){
-        System.out.println("\n--- Grocery Inventory Menu ---\n" +
-                "1. View Inventory \n" +
-                "2. Add Product \n" +
-                "3. Check Product \n" +
-                "4. Update Stock \n" +
-                "5. Remove Product \n" +
-                "6. Exit");
+        System.out.println("\n--- Grocery Inventory Menu ---");
+        System.out.println("1. View Inventory");
+        System.out.println("2. Add Product ");
+        System.out.println("3. Check Product");
+        System.out.println("4. Update Stock ");
+        System.out.println("5. Remove Product ");
+        System.out.println("6. Exit");
         System.out.print("Choose an option: ");
-        return sc.next();
+        return sc.nextLine();
     }
 
     public static String viewInventory(HashMap<String, Integer> groceryInventory){
@@ -67,11 +68,10 @@ public class Main {
             System.out.println("Inventory is empty. No items to display.");
         }
         else {
-            for (Map.Entry<String, Integer> entry : groceryInventory.entrySet()) {
-                System.out.println(entry.getKey() + " - " + entry.getValue() + " pcs");
+            groceryInventory.forEach((key, value) ->
+                    System.out.println(key + " - " + value + " pcs"));
             }
-        }
-        return "Current Inventory";
+        return "View Inventory";
     }
 
     public static String addProduct(String item, int qty){
@@ -83,7 +83,7 @@ public class Main {
 
     public static String checkProduct(String item){
         if (groceryInventory.isEmpty()){
-            System.out.println("Inventory is empty. No stock to check.");;
+            System.out.println("Inventory is empty. No stock to check.");
         }
         else {
             if (groceryInventory.containsKey(item)){
@@ -99,15 +99,15 @@ public class Main {
 
     public static String updateProduct(String item, int qty){
         if (groceryInventory.isEmpty()){
-            System.out.println("Inventory is empty. No stock to check.");;
+            System.out.println("Inventory is empty. No stock to check.");
         }
         else {
             if (groceryInventory.containsKey(item)){
-                groceryInventory.put(item, qty);
+                groceryInventory.replace(item, qty);
                 System.out.println("Product updated!");
             }
             else {
-                System.out.println("Item is not in stock.");
+                System.out.println("Product not found.");
             }
         }
         return "Product updated!";
@@ -115,7 +115,7 @@ public class Main {
 
     public static String removeProduct(String item){
         if (groceryInventory.isEmpty()){
-            System.out.println("Inventory is empty. No stock to check.");;
+            System.out.println("Inventory is empty. No stock to check.");
         }
         else {
             if (groceryInventory.containsKey(item)){
@@ -123,7 +123,7 @@ public class Main {
                 System.out.println("Product removed.");
             }
             else {
-                System.out.println("Item is not in stock.");
+                System.out.println("Product not found.");
             }
         }
         return "Product removed.";
